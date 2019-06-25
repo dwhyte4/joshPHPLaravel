@@ -20,6 +20,7 @@
               <label for="name">Task Name:</label>
               <input type="text" class="form-control" name="name"/>
           </div>
+          <button type="submit" class="btn btn-primary-outline">Add Task</button>
       </form>
   </div>
 </div>
