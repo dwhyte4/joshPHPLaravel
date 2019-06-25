@@ -14,13 +14,14 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
+        //$tasks = Task::all();
+        $task = Task::find(1)->id;
 
 
         //$task = tasks::find(all);
         //$tasks = auth($task)->user(id);
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('task'));
     }
 
     /**
