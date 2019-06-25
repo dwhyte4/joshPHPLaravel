@@ -24,7 +24,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        return view('Task.create');
+        /*
+        The create() function makes use of the view() method to return the create.
+        blade.php template which needs to be present in the resources/views folder.
+        */
     }
 
     /**
