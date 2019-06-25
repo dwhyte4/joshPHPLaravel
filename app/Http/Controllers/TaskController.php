@@ -35,7 +35,19 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+          'name'=>'required'
+
+        ]);
+
+        $task = new Task([
+        'name'=> $request-> get('name')
+       //This is based on requesting the field and getting the field
+        // Once that is done user saves their new task entry and the whole thing is added to the database
+        ]);
+        $task-> save();
+        return redirect('/Task')->with('Succes!', 'Task Saved');
     }
 
     /**
