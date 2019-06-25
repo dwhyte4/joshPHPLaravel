@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::resource('tasks', 'TaskController');
+Route::resource('tasks', 'TaskController')->middleware('auth');
 //Run Route cache later
 
 Route::get('/home', 'HomeController@index')->name('home');

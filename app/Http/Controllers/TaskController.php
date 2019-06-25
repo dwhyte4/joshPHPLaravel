@@ -14,7 +14,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-         $tasks = Task::all();
+        $tasks = Task::all();
+
+
+        //$task = tasks::find(all);
+        //$tasks = auth($task)->user(id);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -42,18 +46,21 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
-          'name'=>'required'
-
+//validate GET requests
+          'name'=>'required',
         ]);
 
-        $task = new Task([
-        'name'=> $request-> get('name')
+        $tasks = new Task([
+        'name'=> $request-> get('name'),
+        'completed'=> $request-> get('completed'),
+        'user_id' => auth()->id(),
+        //ask about getting timestamps
+
        //This is based on requesting the field and getting the field
         // Once that is done user saves their new task entry and the whole thing is added to the database
         ]);
-        $task-> save();
-        return redirect('/Task')->with('Succes!', 'Task Saved');
+        $tasks-> save();
+        return redirect('/tasks')->with('Succes!', 'Task Saved');
     }
 
     /**
@@ -73,10 +80,10 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task, $id)
+    public function edit($id)
     {
          $tasks = Task::find($id);
-        return view('tasks.edit', compact('task'));
+        return view('tasks.edit', compact('tasks'));
     }
 
     /**
@@ -86,16 +93,17 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name'=>'required'
         ]);
         $task = Task::find($id);
-        $task->first_name =  $request->get('name');
+        $task->name =  $request->get('name');
+        $task->completed = $request->get('completed');
         $task->save();
 
-        return redirect('/Task')->with('success', 'Task updated!');
+        return redirect('/tasks')->with('success', 'Task updated!');
     }
 
     /**
@@ -104,8 +112,11 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
-        //
+         $tasks = Task::find($id);
+        $tasks->delete();
+
+        return redirect('/tasks')->with('success', 'Task deleted!');
     }
 }

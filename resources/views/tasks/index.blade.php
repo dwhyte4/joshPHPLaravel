@@ -4,6 +4,9 @@
 <div class="row">
 <div class="col-sm-12">
     <h1 class="display-3">Daily Task</h1>
+    <p>
+    <a style="margin: 19px;" href="{{ route('tasks.create') }}" class="btn btn-primary">Create New Task</a>
+  </p>
   <table class="table table-striped">
     <thead>
         <tr>
@@ -22,8 +25,15 @@
         <tr>
             <td>{{$task->id}}</td>
             <td>{{$task->user_id}}</td>
-            <td>{{$task->name}} </td>
-            <td>{{$task->completed}}</td>
+            <td>{{$task->name}}</td>
+            <td>
+              <form method="post" action="/tasks/{{ $task->id }}">
+                @csrf
+                @method('PATCH')
+                <input type="checkbox" name="completed" value="1" onchange="this.form.submit()" @if($task->completed) checked @endif>
+                <input type="hidden" name="name" value="{{ $task->name }}">
+              </form>
+            </td>
             <td>{{$task->created_at}}</td>
             <td>{{$task->updated_at}}</td>
             <td>
@@ -40,10 +50,13 @@
         @endforeach
     </tbody>
   </table>
+  <div class="col-sm-12">
 
-  <p>
-    <a href="{{ route('tasks.create') }}">Create new task</a>
-  </p>
-<div>
+  @if(session()->get('success'))
+    <div class="alert alert-success">
+      {{ session()->get('success') }}
+    </div>
+  @endif
 </div>
+
 @endsection
