@@ -14,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        return 'hello';
     }
 
     /**
@@ -24,7 +24,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('Task.create');
+        return view('tasks.create');
         /*
         The create() function makes use of the view() method to return the create.
         blade.php template which needs to be present in the resources/views folder.
@@ -71,7 +71,7 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task, Task $id)
+    public function edit(Task $task, $id)
     {
          $task = Task::find($id);
         return view('Task.edit', compact('task'));
@@ -84,9 +84,16 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+        $task = Task::find($id);
+        $task->first_name =  $request->get('name');
+        $task->save();
+
+        return redirect('/Task')->with('success', 'Task updated!');
     }
 
     /**

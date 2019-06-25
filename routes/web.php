@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::resource('Task', 'TaskController');
+Route::resource('tasks', 'TaskController');
 //Run Route cache later
 
 Route::get('/home', 'HomeController@index')->name('home');
