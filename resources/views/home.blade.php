@@ -20,4 +20,7 @@
         </div>
     </div>
 </div>
+<p>
+    <a style="margin: 19px;" href="{{ route('tasks.index') }}" class="btn btn-primary">View Daily Tasks</a>
+  </p>
 @endsection
