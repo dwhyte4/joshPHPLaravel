@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $editable = [
-        'name'
-
+        'name',
+        'completed'
     ];
 }

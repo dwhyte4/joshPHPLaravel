@@ -14,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-         $task = Task::all();
+         $tasks = Task::all();
 
         return view('tasks.index', compact('tasks'));
     }
@@ -75,8 +75,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task, $id)
     {
-         $task = Task::find($id);
-        return view('Task.edit', compact('task'));
+         $tasks = Task::find($id);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
